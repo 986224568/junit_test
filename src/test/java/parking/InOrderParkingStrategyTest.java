@@ -78,7 +78,7 @@ public class InOrderParkingStrategyTest {
         InOrderParkingStrategy inOrderParkingStrategy = spy(new InOrderParkingStrategy());
         inOrderParkingStrategy.park(parkingLotList, car);
         //then
-        verify(inOrderParkingStrategy, times(1)).park(parkingLotList, car);
+        verify(inOrderParkingStrategy, times(1)).createReceipt(parkingLot, car);
 
     }
 
