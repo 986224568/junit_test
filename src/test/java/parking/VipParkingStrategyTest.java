@@ -103,9 +103,11 @@ public class VipParkingStrategyTest {
          */
 
         //given
-        Car car = createMockCar("1");
+        Car car = createMockCar("A");
         //when
+        when(carDao.isVip(any())).thenReturn(false);
         //then
+        assertFalse(vipParkingStrategy1.isAllowOverPark(car));
     }
 
     @Test
