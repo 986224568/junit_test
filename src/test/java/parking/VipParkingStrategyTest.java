@@ -1,14 +1,26 @@
 package parking;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class VipParkingStrategyTest {
+
+
+    @InjectMocks
+    VipParkingStrategy vipParkingStrategy1;
+
+    @Mock
+    CarDaoImpl carDao;
 
 	@Test
     public void testPark_givenAVipCarAndAFullParkingLog_thenGiveAReceiptWithCarNameAndParkingLotName() {
@@ -59,19 +71,14 @@ public class VipParkingStrategyTest {
          */
 
         //given
-        Car car = new Car("A");
-        ParkingLot parkingLot = new ParkingLot("1", 0);
-        List<ParkingLot> parkingLotList = new ArrayList<>();
-        parkingLotList.add(parkingLot);
-        VipParkingStrategy vipParkingStrategy = spy(new VipParkingStrategy());
-        CarDaoImpl carDao = mock(CarDaoImpl.class);
-        when(carDao.isVip(any())).thenReturn(true);
-        vipParkingStrategy.carDao = carDao;
+        Car car = createMockCar("A");
         //when
-        Receipt receipt = vipParkingStrategy.park(parkingLotList, car);
+        when(carDao.isVip(any())).thenReturn(true);
+        //when(vipParkingStrategy1.isAllowOverPark(any())).thenReturn(true);
         //then
-        assertEquals("1",receipt.getParkingLotName());
+        assertTrue(vipParkingStrategy1.isAllowOverPark(car));
     }
+
 
     @Test
     public void testIsAllowOverPark_givenCarNameDoesNotContainsCharacterAAndIsVipCar_thenReturnFalse(){
@@ -80,6 +87,12 @@ public class VipParkingStrategyTest {
          * You may refactor the code, or try to use
          * use @RunWith(MockitoJUnitRunner.class), @Mock (use Mockito, not PowerMock) and @InjectMocks
          */
+        //given
+
+        //when
+        //then
+
+
     }
 
     @Test
@@ -88,6 +101,11 @@ public class VipParkingStrategyTest {
          * You may refactor the code, or try to use
          * use @RunWith(MockitoJUnitRunner.class), @Mock (use Mockito, not PowerMock) and @InjectMocks
          */
+
+        //given
+        Car car = createMockCar("1");
+        //when
+        //then
     }
 
     @Test
